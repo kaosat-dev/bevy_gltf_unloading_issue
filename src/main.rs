@@ -19,22 +19,20 @@ fn main() {
 pub struct MyGltf ( pub Handle<Gltf> );
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    // does not workcommands.insert_resource(MyGltf(asset_server.load("missiletower_building002.glb#Scene0")));
-    //commands.insert_resource(MyGltf(asset_server.load("Wheelbot.glb#Scene0")));
-    //commands.insert_resource(MyGltf(asset_server.load("free_gmc_motorhome_reimagined_low_poly_high.glb#Scene0")));
+    // does not work
+    commands.insert_resource(MyGltf(asset_server.load("missiletower_building002.glb#Scene0")));
+    // works
+    // commands.insert_resource(MyGltf(asset_server.load("Wheelbot.glb#Scene0")));
 
-    //commands.insert_resource(MyGltf(asset_server.load("FlightHelmet.gltf#Scene0")));
-    commands.insert_resource(MyGltf(asset_server.load("missiletower1_building003.glb#Scene0")));
-
-    
 }
 
 fn track_creation(
     mut events: EventReader<AssetEvent<Gltf>>,
+    bla: ResMut<MyGltf>
 ) {
     for event in events.iter() {
         if let AssetEvent::Created { handle } = event {
-            info!("gltf created {:?}", handle.clone());
+            info!("gltf created {:?}", bla.0);
         }
     }
 }
